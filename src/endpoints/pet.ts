@@ -32,3 +32,14 @@ export const deletePetEndpoint = async (id: number): Promise<ApiResponse<void>> 
   const response = await axiosInstance.delete(`/pet/${id}`);
   return { status: response.status, data: undefined };
 };
+
+export const uploadPetImageEndpoint = async (petId: number, file: File): Promise<ApiResponse<any>> => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const response = await axiosInstance.post(`/pet/${petId}/uploadImage`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+
+  return { status: response.status, data: response.data };
+};

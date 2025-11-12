@@ -26,6 +26,10 @@ class PetService {
   async findByStatus(status: string): Promise<ApiResponse<Pet[]>> {
     return petEndpoints.findPetsByStatusEndpoint(status);
   }
+
+  async uploadImage(petId: number, file: File): Promise<ApiResponse<any>> {
+    return petEndpoints.uploadPetImageEndpoint(petId, file);
+  }
 }
 
 export default new PetService();
