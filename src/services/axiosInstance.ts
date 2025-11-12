@@ -1,30 +1,14 @@
 import axios from 'axios';
 
 type AxiosInstanceType = ReturnType<typeof axios.create>;
+const baseURL = process.env.BASE_URL || 'https://petstore.swagger.io/v2';
 
-class ApiClient {
-  private instance: AxiosInstanceType;
+const axiosInstance: AxiosInstanceType = axios.create({
+  baseURL,
+  timeout: 10_000,
+  headers: {
+    Accept: 'application/json',
+  },
+});
 
-  constructor(baseURL: string = process.env.BASE_URL || 'https://petstore.swagger.io/v2') {
-    this.instance = axios.create({
-      baseURL,
-      headers: {
-        accept: 'application/json',
-        'content-type': 'application/json',
-      },
-      timeout: 10000,
-    });
-  }
-
-  async get<T>(path: string, params?: Record<string, any>): Promise<T> {
-    const response = await this.instance.get<T>(path, { params });
-    return response.data;
-  }
-
-  async post<T>(path: string, data: any): Promise<T> {
-    const response = await this.instance.post<T>(path, data);
-    return response.data;
-  }
-}
-
-export default new ApiClient();
+export default axiosInstance;
