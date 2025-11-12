@@ -1,11 +1,10 @@
 import { test, expect } from '@playwright/test';
-import { getPetsByStatus } from '../src/endpoints/pet';
+import petService from '../src/services/petService';
 
 test('GET /pet/findByStatus smoke test', async ({ request }) => {
-  const response = await getPetsByStatus('available');
-  expect(response.status).toBe(200);
-
-  const pets = response.data;
+  const { status: getStatus, data: pets } = await petService.findByStatus('available');
+  console.log(getStatus, pets);
+  expect(getStatus).toBe(200);;
 
   if (pets) {
     const pet = pets[0];
