@@ -1,10 +1,6 @@
 import axiosInstance from '../services/axiosInstance';
 import type { Pet } from '../types/pet';
-
-interface ApiResponse<T> {
-  status: number;
-  data: T;
-}
+import type { ApiResponse } from '../types/api';
 
 export const findPetsByStatusEndpoint = async (status: string): Promise<ApiResponse<Pet[]>> => {
   const response = await axiosInstance.get<Pet[]>('/pet/findByStatus', {
