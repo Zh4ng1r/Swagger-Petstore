@@ -11,17 +11,27 @@ class PetService {
     return petEndpoints.createPetEndpoint(pet);
   }
 
-  async getPetById(id: number): Promise<ApiResponse<Pet>> {
-    return petEndpoints.getPetByIdEndpoint(id);
+async getPetById(id: number): Promise<ApiResponse<Pet | undefined>> {
+  try {
+    const response = await petEndpoints.getPetByIdEndpoint(id);
+    return { status: response.status, data: response.data };
+  } catch (error: any) {
+    return { status: error.response?.status, data: undefined };
   }
+}
 
   async updatePet(pet: Pet): Promise<ApiResponse<Pet>> {
     return petEndpoints.updatePetEndpoint(pet);
   }
 
-  async deletePet(id: number): Promise<ApiResponse<void>> {
-    return petEndpoints.deletePetEndpoint(id);
+async deletePet(id: number): Promise<ApiResponse<void>> {
+  try {
+    const response = await petEndpoints.deletePetEndpoint(id);
+    return { status: response.status, data: undefined };
+  } catch (error: any) {
+    return { status: error.response?.status, data: undefined };
   }
+}
 
   async findByStatus(status: string): Promise<ApiResponse<Pet[]>> {
     return petEndpoints.findPetsByStatusEndpoint(status);

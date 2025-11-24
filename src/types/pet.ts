@@ -14,7 +14,7 @@ export interface Pet {
   id?: number;
   category?: Category;
   name: string;
-  photoUrls: string[];
+  photoUrls?: string[];
   tags?: Tag[];
   status?: PetStatus;
 }
