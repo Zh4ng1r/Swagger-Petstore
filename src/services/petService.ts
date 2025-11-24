@@ -1,10 +1,6 @@
 import type { Pet } from '../types/pet';
 import * as petEndpoints from '../endpoints/pet';
-
-interface ApiResponse<T> {
-  status: number;
-  data: T;
-}
+import type { ApiResponse } from '../types/api';
 
 class PetService {
   async createPet(pet: Pet): Promise<ApiResponse<Pet>> {
